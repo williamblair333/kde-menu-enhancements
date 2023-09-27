@@ -42,7 +42,7 @@ APP_FILES=(
     [libreoffice]="docx odt xlsx xls"
     # ... add more applications and file patterns as needed
 )
-
+```
 Each key represents an application, and each value is a space-separated list of file extensions or specific file names to be opened with that application.
 
 ## Execution
