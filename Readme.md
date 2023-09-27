@@ -43,3 +43,9 @@ APP_FILES=(
     # ... add more applications and file patterns as needed
 )
 ```
+
+Each key represents an application, and each value is a space-separated list of file extensions or specific file names to be opened with that application.
+
+## Execution
+
+Right-click on a directory in Dolphin, and select 'Open All Files' from the context menu to open all files in that directory with their respective applications.
