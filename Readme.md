@@ -33,7 +33,6 @@ Exec=/usr/local/bin/open_files.sh %F
 
 ### Script Configuration
 
-Create a file named `open_files.sh` in `/usr/local/bin/open_files.sh` 
 Update the `APP_FILES` associative array in the `open_files.sh` script to add or change the applications and file patterns associated with them:
 
 ```bash
