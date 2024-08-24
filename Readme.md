@@ -1,51 +1,21 @@
-# KDE 5 Dolphin Context Menu Open All Files In Desktop
+# KDE 5/6 Dolphin Context Menu Enhancements
 
-A script to open all files in a specified directory with their associated applications based on file extensions or specific file names.
+Scripts to make your life a little easier and more productive.
 
 ## Setup
 
-1. Save the script as `open_files.sh` in the `/usr/local/bin/` directory (or another directory of your choice).
-2. Ensure the script is executable by running: `chmod +x /usr/local/bin/open_files.sh`.
+0. I'll eventually include a shell script to automate the cp job from repo directory to /usr/local/bin and then make executable.
+1. cp dce*.sh to /usr/local/bin and then chmod +x dce*.sh.
+2. cp *.desktop to /usr/share/kservices5/ServiceMenus/.
+3. execute kbuildsycoca5 in a shell.  From the man page:  (kbuildsycoca5 - Rebuilds the KService desktop file system configuration cache)
+
 
 ## Usage
 
-This script is intended to be used with a custom desktop entry in the KDE context menu.
+Open All Files:  In dce_open_all_files.sh, specify which file extensions you want to open and with which program to open them.  The menu will then open ALL files that it recognizes with the appropriate file extenstion using the specified executable.  Make all file extension and executable configurations at the APP_FILES declaration.
 
-### Desktop Entry
+Paste As Link:  Right-click and click Copy on any single file or folder in Dolphin.  In the target folder, right-click and select Paste As Link.  You will be prompted to rename the file.  Choose yes to rename or no to leave as is.  You can do the same process for urls.
 
-Create a file named `OpenAllFiles.desktop` in `/usr/share/kservices5/ServiceMenus/` with the following content:
+## Notes / Todo
 
-```bash
-[Desktop Entry]
-Type=Service
-ServiceTypes=KonqPopupMenu/Plugin
-X-KDE-ServiceTypes=KonqPopupMenu/Plugin
-MimeType=inode/directory;application/octet-stream;
-Name=Open All Files
-Actions=openAllFiles;
-X-KDE-Priority=TopLevel
-
-[Desktop Action openAllFiles]
-Name=Open All Files
-Icon=system-run
-Exec=/usr/local/bin/open_files.sh %F
-```
-
-### Script Configuration
-
-Update the `APP_FILES` associative array in the `open_files.sh` script to add or change the applications and file patterns associated with them:
-
-```bash
-declare -A APP_FILES
-APP_FILES=(
-    [kate]="txt yml py sh pub Dockerfile md sql"
-    [libreoffice]="docx odt xlsx xls"
-    # ... add more applications and file patterns as needed
-)
-```
-
-Each key represents an application, and each value is a space-separated list of file extensions or specific file names to be opened with that application.
-
-## Execution
-
-Right-click on a directory in Dolphin, and select 'Open All Files' from the context menu to open all files in that directory with their respective applications.
+Currently you can only select one item to copy and paste as a link. Selecting more than one seems to do no harm although you'll only get one created link.  I'd like to include other things like ftp, mailto:  etc. in the future.

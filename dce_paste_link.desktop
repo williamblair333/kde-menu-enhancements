@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin, inode/directory
+Actions=pasteAsLink
+MimeType=inode/directory;
+X-KDE-Priority=TopLevel
+
+[Desktop Action pasteAsLink]
+Name=Paste as Link
+Icon=edit-paste
+Exec=/usr/local/bin/dce_paste_link.sh %f
