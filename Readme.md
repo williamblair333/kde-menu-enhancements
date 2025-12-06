@@ -1,143 +1,130 @@
 # ✦ KDE Menu Enhancements  
-*Precision-crafted application menu refinements for KDE Plasma power users*
+*Practical Dolphin right-click extensions for faster, smarter file workflows*
 
 ---
 
 ## 🖥️ Overview
 
-**KDE Menu Enhancements** is a collection of curated `.desktop` overrides and structural adjustments that refine how KDE Plasma presents, organizes, and discovers applications.  
-The goal is singular: **a cleaner, faster, more coherent application launcher** — without modifying KDE internals or introducing heavy dependencies.
+**KDE Menu Enhancements** adds two high-value service-menu actions to Dolphin, KDE’s file manager.  
+Each enhancement is minimalist, safe, and designed for power-user efficiency:
 
-This project focuses on **professional UX consistency**, **keyboard-efficient navigation**, and **predictable categorization** across distributions.
+1. **Open All Files** — instantly open every selected file using its default application.  
+2. **Paste Link** — create filesystem links from clipboard paths instead of duplicating files.
 
----
-
-## ✨ Key Features
-
-- **Unified Naming Standards**  
-  Ensures application titles are consistent, readable, and professionally presented.
-
-- **Refined Categories**  
-  Places apps where users expect them — fixing common mis-categorized entries from upstream packages.
-
-- **Keyword Improvements**  
-  Enhances Dolphin, KRunner, and App Launcher search accuracy.
-
-- **Minimalist Design Philosophy**  
-  No bloat. No rewrites. Only targeted, high-impact `.desktop` file improvements.
-
-- **Zero Risk**  
-  Entirely reversible and user-local by default.  
-  System-wide deployment supported for managed environments.
+These additions integrate cleanly into Dolphin’s context menu without altering system behavior or requiring any KDE internals to be modified.
 
 ---
 
-## 📂 Repository Structure
+## ✨ Features
 
-```
-kde-menu-enhancements/
-├── applications/
-│   ├── *.desktop          # Enhanced app entries
-│   └── categories/        # Category overrides
-└── icons/                 # Optional icon refinements
-```
+### ✔ Open All Files  
+Adds a menu entry allowing you to open **every selected file at once**.
+
+- Useful for batch media review, coding sessions, image sets, multi-document workflows.
+- Respects each file’s default associated application.
+- Executes via a small, auditable shell script.
+
+### ✔ Paste Link  
+Creates a link (not a copy) from whatever file path or URL is currently in your clipboard.
+
+- Ideal for decluttering large projects.
+- Lets you arrange reference folders without duplicating data.
+- Perfect for symbolic link workflows, media libraries, dev environments, and research folders.
 
 ---
 
-## ⚙️ Installation
+## 📁 What Each File Does
+
+### `dce_open_all_files.desktop`
+Dolphin service-menu definition for **Open All Files**.  
+Adds the right-click menu entry and passes selected file paths to the script.
+
+### `dce_open_all_files.sh`
+Executes the “open all selected files” action.
+
+- Iterates through all selected items.
+- Opens each file with its default handler.
+
+### `dce_paste_link.desktop`
+Service-menu definition for **Paste Link**.  
+Triggered when you right-click inside a folder and choose the link-creation option.
+
+### `dce_paste_link.sh`
+Implements the **Paste Link** behavior.
+
+- Reads current clipboard content.
+- Creates a link in the folder where the user invoked the action.
+
+---
+
+## 📦 Installation
 
 ### User-Local (recommended)
 
 ```bash
 git clone https://github.com/williamblair333/kde-menu-enhancements.git
-cp kde-menu-enhancements/applications/*.desktop ~/.local/share/applications/
+
+mkdir -p ~/.local/share/kservices5/ServiceMenus/
+cp kde-menu-enhancements/*.desktop ~/.local/share/kservices5/ServiceMenus/
+
+mkdir -p ~/.local/bin/
+cp kde-menu-enhancements/*.sh ~/.local/bin/
+chmod +x ~/.local/bin/*.sh
+
 kbuildsycoca6
 ```
 
 ### System-Wide
 
 ```bash
-sudo cp kde-menu-enhancements/applications/*.desktop /usr/share/applications/
+sudo cp kde-menu-enhancements/*.desktop /usr/share/kservices5/ServiceMenus/
+sudo cp kde-menu-enhancements/*.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/*.sh
+
 sudo kbuildsycoca6
 ```
 
-### Refresh KDE Cache  
-(Required after any `.desktop` modification)
-
-```bash
-kbuildsycoca6
-```
-
 ---
 
-## 🧭 What This Project Improves
+## 🧭 Usage
 
-| Area               | Enhancement                                                                 |
-| ------------------ | --------------------------------------------------------------------------- |
-| **Menu Clarity**   | Names and categories feel unified and intentional                           |
-| **Search Results** | Faster, more relevant discovery in Launcher/KRunner                         |
-| **UX Consistency** | Removes clutter, duplicates, vague titles, and misplaced applications       |
-| **Workflow Speed** | Optimized for keyboard-centric users and power-desktop environments         |
+### **Open All Files**
+1. Select multiple files in Dolphin.  
+2. Right-click → **Open All Files**.  
+3. Each file opens with its associated default application.
 
----
-
-## 🔧 Customization
-
-`.desktop` files are text-based and fully editable.
-
-Common tweaks:
-
-- `Name=` → display name  
-- `Categories=` → menu placement  
-- `Keywords=` → improves KRunner/App Launcher search  
-- `Icon=` → override icon theme choice
-
-Useful reference:
-
-```bash
-man desktop-file
-```
+### **Paste Link**
+1. Copy a file path or URL to your clipboard.  
+2. Right-click inside a folder → **Paste Link**.  
+3. A link is created in the current directory pointing to the original.
 
 ---
 
 ## 🧪 Compatibility
 
-- KDE Plasma 5.x and Plasma 6  
-- Wayland and X11  
-- Debian, Ubuntu, Arch, Fedora, openSUSE, and derivatives  
+- KDE Plasma 5 & 6  
+- Dolphin on X11 or Wayland  
+- Works on all major distros (Debian/Ubuntu, Arch, Fedora, openSUSE)
 
 ---
 
 ## 🤝 Contributing
 
-Pull requests welcome.  
-Ideal contributions include:
+Enhancements to the service menus or additional workflows are welcome.  
+Please ensure contributions remain:
 
-- Category corrections  
-- Keyword enhancements  
-- Icon/visual refinements  
-- Menu organization proposals  
-- Application-specific polishing  
-
-Ensure changes are consistent with the project's **clean, professional UX mandate**.
+- Minimal  
+- Safe  
+- Purpose-driven  
+- Fully auditable  
 
 ---
 
 ## 📜 License
 
-MIT — clean, permissive, reusable.
-
----
-
-## 🜍 Vision
-
-The Plasma desktop is powerful — but inconsistent across distros and upstream packages.  
-**KDE Menu Enhancements** offers a precise, minimalistic solution:  
-*polish the small things that users interact with dozens of times per day.*
-
-A simple idea — executed with care — elevates the entire desktop experience.
+MIT — lightweight, permissive, and user-friendly.
 
 ---
 
 **Maintained by Xavier — X Forge Labs**  
-Professional UX refinements for users who expect more.
+Small tools. Big workflow gains.
